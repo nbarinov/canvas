@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Canvas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section class="canvas">
+    <header class="canvas__params">
+      <label class="canvas__label">
+        Color:
+        <select id="colorSelect">
+          <option value="red">red</option>
+          <option value="green">green</option>
+          <option value="blue">blue</option>
+        </select>
+      </label>
+      <label class="canvas__label">
+        Width Line:
+        <input type="number" id="widthInput" min="1" max="100" value="1">
+      </label>
+    </section>
+    <canvas id="canvas" class="canvas__c" width="800" height="600"></canvas>
+  </section>
+
+  <script src="bundle.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+.canvas {}
+
+.canvas__params {
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 12px;
+}
+
+.canvas__label {
+  margin-right: 12px;
+}
+
+.canvas__label:last-child {
+  margin-right: 0;
+}
+
+.canvas__c {
+  border: 1px dotted #e7e7e7;
+  cursor: crosshair;
+}

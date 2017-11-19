@@ -1,0 +1,32 @@
+{
+  "name": "canvas",
+  "version": "1.0.0",
+  "description": "Холст для рисования прямых линий",
+  "main": "server/index.js",
+  "scripts": {
+    "server": "node ./server/index.js",
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nbarinov/canvas.git"
+  },
+  "author": "Nikita Barinov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nbarinov/canvas/issues"
+  },
+  "homepage": "https://github.com/nbarinov/canvas#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "clean-webpack-plugin": "^0.1.17",
+    "copy-webpack-plugin": "^4.2.1",
+    "css-loader": "^0.28.7",
+    "express": "^4.16.2",
+    "style-loader": "^0.19.0",
+    "webpack": "^3.8.1"
+  }
+}
