@@ -7,6 +7,7 @@ export default class Canvas {
     this.colorSelect = document.getElementById('colorSelect'); // селектор с цветами
     this.widthInput = document.getElementById('widthInput');
     this.valueInput = document.querySelector('.canvas__span');
+    this.clearButton = document.getElementById('clear');
 
     this.x1 = 0;
     this.y1 = 0;
@@ -19,6 +20,7 @@ export default class Canvas {
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
     this.omMouseMove = this.omMouseMove.bind(this);
+    this.clear = this.clear.bind(this);
   }
 
   changeValue(element, value) {
@@ -29,6 +31,14 @@ export default class Canvas {
     if(element === 'width') {
       this.valueInput.innerHTML = value;
     }
+  }
+
+  /**
+   * Очистка холста
+   */
+  clear() {
+    this.c.clearRect(0, 0, this.canvas.width, this.canvas.height); // очищаем хост
+    this.lines = new Array(); // очищаем массив линий
   }
 
   /**
@@ -127,5 +137,6 @@ export default class Canvas {
     // отслеживаем события клика
     this.canvas.addEventListener('mousedown', this.onMouseDown);
     this.canvas.addEventListener('mouseup', this.onMouseUp);
+    this.clearButton.addEventListener('click', this.clear);
   }
 }
