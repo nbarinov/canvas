@@ -6,6 +6,7 @@ export default class Canvas {
     this.c = canvas.getContext('2d'); // указатель на контекст рисования 
     this.colorSelect = document.getElementById('colorSelect'); // селектор с цветами
     this.widthInput = document.getElementById('widthInput');
+    this.valueInput = document.querySelector('.canvas__span');
 
     this.x1 = 0;
     this.y1 = 0;
@@ -21,10 +22,13 @@ export default class Canvas {
     if(this[element] !== value) {
       this[element] = value;
     }
+
+    if(element === 'width') {
+      this.valueInput.innerHTML = value;
+    }
   }
 
   onMouseDown(e) {
-    console.log(e);
     this.x1 = e.offsetX;
     this.y1 = e.offsetY;
   }
@@ -43,7 +47,7 @@ export default class Canvas {
   run() {
     // отслеживаем события параметром
     this.colorSelect.addEventListener('change', e => this.changeValue('color', e.target.value));
-    this.widthInput.addEventListener('change', e => this.changeValue('width', e.target.value));
+    this.widthInput.oninput = e => this.changeValue('width', e.target.value);
     // отслеживаем события клика
     this.canvas.addEventListener('mousedown', this.onMouseDown);
     this.canvas.addEventListener('mouseup', this.onMouseUp);
