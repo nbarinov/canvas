@@ -13,9 +13,12 @@ export default class Canvas {
     this.color = colorSelect.value,
     this.width = widthInput.value;
 
+    this.lines = new Array(); // массив линий
+
     this.changeValue = this.changeValue.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
+    this.omMouseMove = this.omMouseMove.bind(this);
   }
 
   changeValue(element, value) {
@@ -28,20 +31,93 @@ export default class Canvas {
     }
   }
 
+  /**
+   * Отслеживание события нажатия кнопки мыши
+   * 
+   * @param {*} e - Mouse Event
+   */
   onMouseDown(e) {
-    this.x1 = e.offsetX;
-    this.y1 = e.offsetY;
+    // если зажата левая кнопка мыши
+    if(e.which === 1) {
+      // сохраняем позицию курсора
+      this.x1 = e.offsetX;
+      this.y1 = e.offsetY;
+
+      // начинаем отслеживать перемещение курсора
+      this.canvas.onmousemove = this.omMouseMove;
+    }
   }
 
-  onMouseUp(e) {
-    if (e.offsetX !== this.x1 && e.offsetY !== this.y1) {
-      this.c.beginPath();
-      this.c.lineWidth = this.width;
-      this.c.strokeStyle = this.color;
-      this.c.moveTo(this.x1, this.y1);
-      this.c.lineTo(e.offsetX, e.offsetY);
-      this.c.stroke();
+  /**
+   * Отслеживания события перемещения курсора
+   * 
+   * @param {*} e - Mouse Event 
+   */
+  omMouseMove(e) {
+    // удаляем последний элемент массива линий
+    if(this.lines.length > 0) {
+      delete this.lines[this.lines.length - 1];
     }
+
+    // добавляем линию
+    this.lines.push({
+      path: [this.x1, this.y1, e.offsetX, e.offsetY],
+      color: this.color,
+      width: this.width,
+    });
+    
+    // перерисовываем холст
+    this.redrawLines();
+  }
+
+  /**
+   * Отслеживание события разжатия кнопки мыши
+   * 
+   * @param {*} e - Mouse Event
+   */
+  onMouseUp(e) {
+    // если координаты положения курсора не совпадают с начальными
+    if (e.offsetX !== this.x1 && e.offsetY !== this.y1) {
+      // добавляем новую линию
+      this.lines.push({
+        path: [this.x1, this.y1, e.offsetX, e.offsetY],
+        color: this.color,
+        width: this.width,
+      });
+
+      // перерисовываем холст
+      this.redrawLines();
+    }
+
+    // заканчиваем отслеживание перемещения курсора
+    this.canvas.onmousemove = null;
+  }
+
+  /**
+   * Перерисовка хоста
+   */
+  redrawLines() {
+    this.c.clearRect(0, 0, this.canvas.width, this.canvas.height); // очищаем хост
+
+    this.lines.map(line => this.drawLine(line)); // добавляем линии
+  }
+
+  /**
+   * Отрисовка линии
+   * 
+   * @param {*} line - объект линии
+   */
+  drawLine(line) {
+    this.c.save();
+
+    this.c.beginPath();
+    this.c.lineWidth = line.width;
+    this.c.strokeStyle = line.color;
+    this.c.moveTo(line.path[0], line.path[1]);
+    this.c.lineTo(line.path[2], line.path[3]);
+    this.c.stroke();
+
+    this.c.restore();
   }
 
   run() {
