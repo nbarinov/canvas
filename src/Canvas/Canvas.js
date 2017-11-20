@@ -24,17 +24,18 @@ export default class Canvas {
   }
 
   onMouseDown(e) {
-    this.x1 = e.clientX;
-    this.y1 = e.clientY;
+    console.log(e);
+    this.x1 = e.offsetX;
+    this.y1 = e.offsetY;
   }
 
   onMouseUp(e) {
-    if (e.clientX !== this.x1 && e.clientY !== this.y1) {
+    if (e.offsetX !== this.x1 && e.offsetY !== this.y1) {
       this.c.beginPath();
       this.c.lineWidth = this.width;
       this.c.strokeStyle = this.color;
       this.c.moveTo(this.x1, this.y1);
-      this.c.lineTo(e.clientX, e.clientY);
+      this.c.lineTo(e.offsetX, e.offsetY);
       this.c.stroke();
     }
   }
