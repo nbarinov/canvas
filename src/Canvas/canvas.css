@@ -1,4 +1,6 @@
-.canvas {}
+.canvas {
+  width: 800px;
+}
 
 .canvas__params {
   display: flex;
@@ -12,6 +14,10 @@
 
 .canvas__label:last-child {
   margin-right: 0;
+}
+
+.canvas__label--last {
+  margin-left: auto;
 }
 
 .canvas__c {
