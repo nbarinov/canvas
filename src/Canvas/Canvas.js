@@ -5,9 +5,9 @@ export default class Canvas {
     this.canvas = document.getElementById('canvas'); // указатель на холст
     this.c = canvas.getContext('2d'); // указатель на контекст рисования 
     this.colorSelect = document.getElementById('colorSelect'); // селектор с цветами
-    this.widthInput = document.getElementById('widthInput');
-    this.valueInput = document.querySelector('.canvas__span');
-    this.clearButton = document.getElementById('clear');
+    this.widthInput = document.getElementById('widthInput'); // указатель на input width
+    this.valueInput = document.querySelector('.canvas__span'); // указатель на span value
+    this.clearButton = document.getElementById('clear'); // указатель на кнопку clear
 
     this.x1 = 0;
     this.y1 = 0;
@@ -23,6 +23,12 @@ export default class Canvas {
     this.clear = this.clear.bind(this);
   }
 
+  /**
+   * Изменение занчения элемента
+   * 
+   * @param {*} element - элемент
+   * @param {*} value - значение
+   */
   changeValue(element, value) {
     if(this[element] !== value) {
       this[element] = value;
@@ -130,6 +136,9 @@ export default class Canvas {
     this.c.restore();
   }
 
+  /**
+   * Запуск
+   */
   run() {
     // отслеживаем события параметром
     this.colorSelect.addEventListener('change', e => this.changeValue('color', e.target.value));
