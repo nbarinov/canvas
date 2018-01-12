@@ -15,6 +15,7 @@ export default class Canvas {
 
     this.x1 = 0;
     this.y1 = 0;
+    this.dragging = true;
     this.color = colorSelect.value,
     this.width = widthInput.value;
 
@@ -24,6 +25,7 @@ export default class Canvas {
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
     this.clear = this.clear.bind(this);
   }
 
@@ -62,6 +64,7 @@ export default class Canvas {
       // сохраняем позицию курсора
       this.x1 = e.offsetX;
       this.y1 = e.offsetY;
+      this.dragging = true;
 
       // начинаем отслеживать перемещение курсора
       this.canvas.onmousemove = this.onMouseMove;
@@ -111,6 +114,18 @@ export default class Canvas {
 
     // заканчиваем отслеживание перемещения курсора
     this.canvas.onmousemove = null;
+    this.dragging = false;
+  }
+
+  /**
+   * Отслеживание события выхода курсора за предел элемента
+   * 
+   * @param {*} e - Mouse Event
+   */
+  onMouseOut(e) {
+    if(this.dragging) {
+      this.onMouseUp(e);
+    }
   }
 
   /**
@@ -150,6 +165,7 @@ export default class Canvas {
     // отслеживаем события клика
     this.canvas.addEventListener('mousedown', this.onMouseDown);
     this.canvas.addEventListener('mouseup', this.onMouseUp);
+    this.canvas.addEventListener('mouseout', this.onMouseOut);
     this.clearButton.addEventListener('click', this.clear);
   }
 }
