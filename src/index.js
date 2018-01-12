@@ -6,5 +6,6 @@ const c = new Canvas({
     width: 'widthInput',
     widthValue: 'widthValue',
     clear: 'clear',
+    round: 'round',
 });
 c.run();

@@ -12,13 +12,14 @@ export default class Canvas {
     this.widthInput = document.getElementById(settings.width); // указатель на input width
     this.valueInput = document.getElementById(settings.widthValue); // указатель на span value
     this.clearButton = document.getElementById(settings.clear); // указатель на кнопку clear
+    this.roundCheckbox = document.getElementById(settings.round); // указатель на чекбокс round
 
     this.x1 = 0;
     this.y1 = 0;
     this.dragging = false;
     this.color = colorSelect.value,
     this.width = widthInput.value;
-    this.lineCap = 'butt';
+    this.lineCap = this.roundCheckbox.checked ? 'round' : 'butt';
 
     this.lines = new Array(); // массив линий
 
@@ -28,6 +29,7 @@ export default class Canvas {
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onMouseOut = this.onMouseOut.bind(this);
     this.clear = this.clear.bind(this);
+    this.changeLineCap = this.changeLineCap.bind(this);
   }
 
   /**
@@ -53,6 +55,13 @@ export default class Canvas {
     this.c.clearRect(0, 0, this.canvas.width, this.canvas.height); // очищаем хост
     this.lines = new Array(); // очищаем массив линий
   }
+
+  /**
+   * Изменение значения lineCap
+   */
+  changeLineCap() {
+    this.lineCap = this.roundCheckbox.checked ? 'round' : 'butt';
+  } 
 
   /**
    * Отслеживание события нажатия кнопки мыши
@@ -88,6 +97,7 @@ export default class Canvas {
       path: [this.x1, this.y1, e.offsetX, e.offsetY],
       color: this.color,
       width: this.width,
+      lineCap: this.lineCap,
     });
 
     // перерисовываем холст
@@ -107,6 +117,7 @@ export default class Canvas {
         path: [this.x1, this.y1, e.offsetX, e.offsetY],
         color: this.color,
         width: this.width,
+        lineCap: this.lineCap,
       });
 
       // перерисовываем холст
@@ -149,7 +160,7 @@ export default class Canvas {
     this.c.beginPath();
     this.c.lineWidth = line.width;
     this.c.strokeStyle = line.color;
-    this.c.lineCap = this.lineCap;
+    this.c.lineCap = line.lineCap;
     this.c.moveTo(line.path[0], line.path[1]);
     this.c.lineTo(line.path[2], line.path[3]);
     this.c.stroke();
@@ -169,5 +180,6 @@ export default class Canvas {
     this.canvas.addEventListener('mouseup', this.onMouseUp);
     this.canvas.addEventListener('mouseout', this.onMouseOut);
     this.clearButton.addEventListener('click', this.clear);
+    this.roundCheckbox.addEventListener('change', this.changeLineCap);
   }
 }
