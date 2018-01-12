@@ -3,21 +3,22 @@ import './canvas.css';
 export default class Canvas {
   /**
    * Конструктор
-   * @param {*} id - идентификатор холста
+   * @param {*} settings - объект с id элементами
    */
-  constructor(id) {
-    this.canvas = document.getElementById(id); // указатель на холст
+  constructor(settings) {
+    this.canvas = document.getElementById(settings.canvas); // указатель на холст
     this.c = canvas.getContext('2d'); // указатель на контекст рисования 
-    this.colorSelect = document.getElementById('colorSelect'); // селектор с цветами
-    this.widthInput = document.getElementById('widthInput'); // указатель на input width
-    this.valueInput = document.querySelector('.canvas__span'); // указатель на span value
-    this.clearButton = document.getElementById('clear'); // указатель на кнопку clear
+    this.colorSelect = document.getElementById(settings.color); // селектор с цветами
+    this.widthInput = document.getElementById(settings.width); // указатель на input width
+    this.valueInput = document.getElementById(settings.widthValue); // указатель на span value
+    this.clearButton = document.getElementById(settings.clear); // указатель на кнопку clear
 
     this.x1 = 0;
     this.y1 = 0;
     this.dragging = true;
     this.color = colorSelect.value,
     this.width = widthInput.value;
+    this.lineCap = 'butt';
 
     this.lines = new Array(); // массив линий
 
@@ -148,6 +149,7 @@ export default class Canvas {
     this.c.beginPath();
     this.c.lineWidth = line.width;
     this.c.strokeStyle = line.color;
+    this.c.lineCap = this.lineCap;
     this.c.moveTo(line.path[0], line.path[1]);
     this.c.lineTo(line.path[2], line.path[3]);
     this.c.stroke();
