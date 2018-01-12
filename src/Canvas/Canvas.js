@@ -1,8 +1,12 @@
 import './canvas.css';
 
 export default class Canvas {
-  constructor() {
-    this.canvas = document.getElementById('canvas'); // указатель на холст
+  /**
+   * Конструктор
+   * @param {*} id - идентификатор холста
+   */
+  constructor(id) {
+    this.canvas = document.getElementById(id); // указатель на холст
     this.c = canvas.getContext('2d'); // указатель на контекст рисования 
     this.colorSelect = document.getElementById('colorSelect'); // селектор с цветами
     this.widthInput = document.getElementById('widthInput'); // указатель на input width
@@ -19,7 +23,7 @@ export default class Canvas {
     this.changeValue = this.changeValue.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
-    this.omMouseMove = this.omMouseMove.bind(this);
+    this.onMouseMove = this.onMouseMove.bind(this);
     this.clear = this.clear.bind(this);
   }
 
@@ -60,7 +64,7 @@ export default class Canvas {
       this.y1 = e.offsetY;
 
       // начинаем отслеживать перемещение курсора
-      this.canvas.onmousemove = this.omMouseMove;
+      this.canvas.onmousemove = this.onMouseMove;
     }
   }
 
@@ -69,10 +73,10 @@ export default class Canvas {
    * 
    * @param {*} e - Mouse Event 
    */
-  omMouseMove(e) {
+  onMouseMove(e) {
     // удаляем последний элемент массива линий
-    if(this.lines.length > 0) {
-      delete this.lines[this.lines.length - 1];
+    if (this.lines.length > 0) {
+      this.lines.pop();
     }
 
     // добавляем линию
@@ -81,7 +85,7 @@ export default class Canvas {
       color: this.color,
       width: this.width,
     });
-    
+
     // перерисовываем холст
     this.redrawLines();
   }
