@@ -15,7 +15,7 @@ export default class Canvas {
 
     this.x1 = 0;
     this.y1 = 0;
-    this.dragging = true;
+    this.dragging = false;
     this.color = colorSelect.value,
     this.width = widthInput.value;
     this.lineCap = 'butt';
