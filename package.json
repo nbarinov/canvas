@@ -4,7 +4,7 @@
   "description": "Холст для рисования прямых линий",
   "main": "server/index.js",
   "scripts": {
-    "server": "node ./server/index.js",
+    "start": "node ./server/index.js",
     "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

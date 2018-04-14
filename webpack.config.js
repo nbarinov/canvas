@@ -6,7 +6,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 module.exports = {
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'public'),
+    path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
   },
   module: {
@@ -38,19 +38,15 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.UglifyJsPlugin(),
-    new CleanWebpackPlugin(['build/*.*'], {root: __dirname}),
+    new CleanWebpackPlugin(['dist/*.*'], {root: __dirname}),
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, 'public', 'index.html'), 
-        to: path.resolve(__dirname, 'build', 'index.html'),
+        to: path.resolve(__dirname, 'dist', 'index.html'),
       },
       {
         from: path.resolve(__dirname, 'public', 'style.css'),
-        to: path.resolve(__dirname, 'build', 'style.css'),
-      },
-      {
-        from: path.resolve(__dirname, 'public', 'bundle.js'),
-        to: path.resolve(__dirname, 'build', 'bunle.js'),
+        to: path.resolve(__dirname, 'dist', 'style.css'),
       },
     ]),
   ],
